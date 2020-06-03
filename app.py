@@ -1,19 +1,18 @@
-import firebase_admin
-import config
 from flask import Flask
+import config
+import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+cors = CORS(app)
 # Use a service account
 cred = credentials.Certificate(config.key)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-
-
 
 @app.route('/rides',methods=['GET'])
 def get_rides():
